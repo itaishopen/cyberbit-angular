@@ -1,0 +1,30 @@
+<div class="container-fluid" *ngIf="dataService.formData">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>
+        <span class="font-weight-bold">1 </span> <span class="header-text">Select Blackboxes</span>
+      </h2>
+      <app-blackbox (onChange)="devicesChanged()"></app-blackbox>
+    </div>
+    <div class="col-md-3">
+      <h2>
+        <span class="font-weight-bold">2 </span> <span class="header-text">Select Protocols</span>
+      </h2>
+      <app-protocol *ngIf="dataService.formData.protocols" [data]="dataService.formData?.protocols" input="checkbox"></app-protocol>
+    </div>
+    <div class="col-md-3">
+      <h2>
+        <span  class="font-weight-bold">3 </span> <span class="header-text">Select Time Period</span>
+      </h2>
+      <app-time-period [data]="dataService.formData?.times" input="radio"></app-time-period>
+    </div>
+    <div class="col-md-3">
+      <h2>
+          <span class="header-text">Summary</span>
+      </h2>
+      <app-summary [summary]="dataService.selectedValues"></app-summary>
+    </div>
+  </div>
+
+</div>
+<router-outlet></router-outlet>

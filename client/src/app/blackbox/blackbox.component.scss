@@ -1,0 +1,33 @@
+.mat-expansion-panel-header, .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
+  flex-direction: row-reverse;
+  justify-items: center;  
+  background: #184369;
+    color: white;
+    height: 35px !important;
+  }
+  .mat-expansion-panel-body {
+    padding: 0 0 0 0;
+  }
+  .color-cornflowerblue {
+    color: cornflowerblue;
+  }
+  .checkbox {
+    margin: 0 5px 0 10px;
+  }
+  .mat-expansion-panel, .mat-expanded, .mat-expansion-panel-spacing {
+    border: 2px solid #ebf2f9;
+    border-top: none;
+  }
+  
+  .header-group {
+    display: flex;
+    // margin-left: 10px;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+
+  .mat-expansion-panel-spacing {
+    margin: 0;
+  }

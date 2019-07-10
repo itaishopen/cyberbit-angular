@@ -1,0 +1,10 @@
+<div [ngSwitch]="input" class="time-container">
+  <div *ngSwitchCase="'radio'">
+    <ul class="list-unstyled">
+      <li *ngFor="let item of data">
+          <label>
+          <input id="item.id" type="radio" [(ngModel)]="dataService.selectedValues.times" (change)="itemChange()" name="radiogroup" [value]="item.id"><span class="radio-text">{{item.name}}</span></label>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="row summary-container">
+  <div class="col-md-12">
+    <ul class="list-unstyled">
+      <li class="title">1</li>
+      <li *ngFor="let id of summary.devices" class="text">
+        {{ getDeviceName(id) }}
+      </li>
+    </ul>
+    <ul class="list-unstyled"><li><hr></li></ul>
+    <ul class="list-unstyled">2 <span *ngIf="summary.protocols" class="placeholder-text">-Select Protocol- {{ dataService.formData.protocols.length }}</span>
+      <li *ngFor="let protocol of summary.protocols; let i = index" [class.none]="!protocol" class="text">
+        {{protocol ? getProtocolName(i) : ''}}
+      </li>
+    </ul>
+    <ul class="list-unstyled"><li><hr></li></ul>
+    <ul class="list-unstyled">
+      <li class="title">3 <span *ngIf="summary.times" class="text">{{ getTimes(summary.times) }}</span>
+        <span *ngIf="!summary.times" class="placeholder-text">-Select Time-</span></li>
+    </ul>
+    <ul class="list-unstyled"><li><hr></li></ul>
+  </div>
+  <div class="col-md-3">
+    <button class="btn btn-link" (click)="clear()">
+      clear
+    </button>
+  </div>
+  <div class="col-md-3">
+    <button class="btn btn-primary start-btn" (click)="sendRequest()">
+        <svg class="circle-fill">
+            <polygon fill="#fff" stroke="#fff" stroke-width="1" points="0,2 0,18 15,10"></polygon>
+          </svg>
+      Start Learning
+    </button>
+  </div>
+</div>
