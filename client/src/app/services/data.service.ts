@@ -14,10 +14,4 @@ export class DataService {
   getData() {
     return this.http.get(URL);
   }
-  public updateData() {
-    return this.http.put(URL, JSON.stringify(this.formData))
-  }
-  clearData() {
-    this.formData.device_groups.forEach((group) => group.devices.forEach((device) => device.active = 0));
-  }
 }
