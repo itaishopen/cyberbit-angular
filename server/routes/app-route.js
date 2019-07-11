@@ -8,7 +8,6 @@ function addAppRoutes(app) {
     // UPDATE
     app.put(DATA_URL, (req, res) => {
         const data = req.body;        
-        console.log(data);
         dataService.updateData(data)
             .then(data => res.json(data))
     })

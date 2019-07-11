@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import {DataService} from '../services/data.service';
+import { Component, ViewChildren, QueryList, ElementRef, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-protocol',
@@ -7,13 +6,18 @@ import {DataService} from '../services/data.service';
   styleUrls: ['./protocol.component.scss']
 })
 export class ProtocolComponent {
-  @Input() data: any;
+  @ViewChildren("checkboxes") checkboxes: QueryList<ElementRef>;
+  @Input() protocols: any;
+  @Input() checkAll: any;
   @Input() input: string;
-  selectedValue: any;
-  constructor(private dataService: DataService) {
-    this.selectedValue = [];
+  @Output() protocolUpdate = new EventEmitter();
+  @Output() checkUpdate = new EventEmitter();
+  
+  constructor() {
   }
-  itemChange() {
+  protocolChange(protocol) {
+    this.checkUpdate.emit(this.checkboxes);
+    this.protocolUpdate.emit(protocol);
   }
 
 }

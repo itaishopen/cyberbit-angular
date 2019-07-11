@@ -1,15 +1,15 @@
-<mat-accordion [multi]="true">
-  <mat-expansion-panel *ngFor="let group of this.dataService.formData.device_groups; let i = index">
+<mat-accordion [multi]="true" *ngIf="groups">
+  <mat-expansion-panel *ngFor="let group of groups; let i = index">
     <mat-expansion-panel-header>
+        
       <div class="header-group">
-        <input class="checkbox" type="checkbox" (click)="checkSection(i)" [(ngModel)]="groupsChecked[i]"/>
+        <input class="checkbox" type="checkbox" (click)="checkSection(i, !group.active)" [(ngModel)]="group.active" />
         <label class="group-label" >{{group.name}}</label>
       </div>
     </mat-expansion-panel-header>
     <ul class="list-unstyled">
-      <li *ngFor="let item of group.devices" class="color-cornflowerblue">
-        <input [(ngModel)]="item.active" type="checkbox" class="checkbox" id="check-{{item.id}}"
-          (change)="itemChange(item?.id, item?.active)" /> {{item.name}}
+      <li *ngFor="let device of group.devices" class="color-cornflowerblue">
+        <input type="checkbox" [(ngModel)]="device.active"  class="checkbox"  id="check-{{device.id}}" (change)="deviceChange(device?.id, device?.active)" /> {{device.name}}
       </li>
     </ul>
   </mat-expansion-panel>

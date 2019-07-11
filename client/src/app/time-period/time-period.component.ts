@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import {DataService} from '../services/data.service';
+import { Component, ViewChildren, QueryList, ElementRef, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-time-period',
@@ -7,13 +6,15 @@ import {DataService} from '../services/data.service';
   styleUrls: ['./time-period.component.scss']
 })
 export class TimePeriodComponent {
-  @Input() data: any;
+  @ViewChildren("radioboxes") radioboxes: QueryList<ElementRef>;
+  @Input() times: any;
   @Input() input: string;
-  selectedValue: any;
-  constructor(private dataService: DataService) {
-    this.selectedValue = [];
+  @Output() timeUpdate = new EventEmitter();
+  @Output() radioUpdate = new EventEmitter();
+  constructor() {
   }
-  itemChange() {
+  timeChange(time) {    
+    this.radioUpdate.emit(this.radioboxes)
+    this.timeUpdate.emit(time)
   }
-
 }

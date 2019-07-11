@@ -1,28 +1,28 @@
-<div class="container-fluid" *ngIf="dataService.formData">
+<div class="container-fluid" *ngIf="formData">
   <div class="row">
     <div class="col-md-3">
       <h2>
         <span class="font-weight-bold">1 </span> <span class="header-text">Select Blackboxes</span>
       </h2>
-      <app-blackbox (onChange)="devicesChanged()"></app-blackbox>
+      <app-blackbox [groups]="this.formData.device_groups" (deviceUpdate)="groupsChange($event)"></app-blackbox>
     </div>
     <div class="col-md-3">
       <h2>
         <span class="font-weight-bold">2 </span> <span class="header-text">Select Protocols</span>
       </h2>
-      <app-protocol *ngIf="dataService.formData.protocols" [data]="dataService.formData?.protocols" input="checkbox"></app-protocol>
+      <app-protocol *ngIf="this.formData.protocols" [protocols]="this.formData?.protocols" (protocolUpdate)="protocolChange($event)" (checkUpdate)="checkBoxUpdate($event)" input="checkbox"></app-protocol>
     </div>
     <div class="col-md-3">
       <h2>
         <span  class="font-weight-bold">3 </span> <span class="header-text">Select Time Period</span>
       </h2>
-      <app-time-period [data]="dataService.formData?.times" input="radio"></app-time-period>
+      <app-time-period [times]="this.formData.times" input="radio" (timeUpdate)="timeChange($event)" (radioUpdate)="radioBoxUpdate($event)"></app-time-period>
     </div>
     <div class="col-md-3">
       <h2>
           <span class="header-text">Summary</span>
       </h2>
-      <app-summary [summary]="dataService.selectedValues"></app-summary>
+      <app-summary [summary]="this.selectedValues" (clearForm)="clear($event)"></app-summary>
     </div>
   </div>
 

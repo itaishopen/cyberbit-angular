@@ -1,46 +1,55 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import {DataService} from '../services/data.service';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-blackbox',
   templateUrl: './blackbox.component.html',
   styleUrls: ['./blackbox.component.scss']
 })
-export class BlackboxComponent {
-  @Output() onChange = new EventEmitter();
-  groupsChecked = [];
-  constructor(private dataService: DataService) {
-    if (this.dataService.formData.device_groups && this.dataService.formData.device_groups.length) {
+export class BlackboxComponent implements OnInit {
+  @Input() groups: any;
+  @Output() deviceUpdate = new EventEmitter();
+  constructor() {
+    if (this.groups && this.groups.length) {
       this.groupsCheck();
       };
   }
-  itemChange(id, active) {
-    this.groupsChecked = [];
-    this.dataService.formData.device_groups.forEach((group) => {
-      if (group.devices.filter(el => el.id === id).length) {
-        group.devices.filter(el => el.id === id)[0].active = (active ? 1 : 0);
-        this.dataService.updateData();
-      }
-      if (group.devices.length === group.devices.filter(el => el.active === 1 || el.active === true).length) {
-        this.groupsChecked.push(true);
-      } else {
-        this.groupsChecked.push(false);
-      }
-    });
-    this.onChange.emit();
+  ngOnInit() {
+    if (this.groups && this.groups.length) {
+      this.groupsCheck();
+      };
   }
-  checkSection(index) {
-    if (this.groupsChecked[index]) {
-      this.dataService.formData.device_groups[index].devices.forEach( el => el.active = false);
+  groupsActive = [];
+  deviceChange(id, active) {
+    this.groups.forEach((group) => {
+      if (group.devices.filter(device => device.id === id).length) {
+        group.devices.filter(device => device.id === id).active = (active ? 1 : 0);
+      }
+      if (group.devices.length === group.devices.filter(device => device.active === 1 || device.active === true).length) {
+        group.active = true;
+      } else {
+        group.active = false;
+      }
+      this.groupsActive[group.id - 1] = group.active
+    });
+    this.deviceUpdate.emit(this.groups);
+  }
+  checkSection(index, value) {
+    let check = (value === this.groupsActive[index]) ? !value : value;
+    if (check === 1 || check === true) {
+      this.groups[index].devices.forEach( device => device.active = true);
     } else {
-      this.dataService.formData.device_groups[index].devices.forEach( el => el.active = true);
+      this.groups[index].devices.forEach( device => device.active = false);
     }
-    this.onChange.emit();
+    this.groupsActive[index] = !this.groupsActive[index]
+    this.deviceUpdate.emit(this.groups);
   }
   groupsCheck() {
-    this.dataService.formData.device_groups.forEach((group) => {
-      if (group.devices.length === group.devices.filter(el => el.active === 1).length) this.groupsChecked.push(true);
-      this.groupsChecked.push(false);
+    this.groups.forEach((group) => {
+      if (group.devices.length === group.devices.filter(device => device.active === 1 || device.active === true).length) {
+        group.active = true;
+      }
+      else group.active = false;
+      this.groupsActive[group.id - 1] = group.active
     });
   }
 }

@@ -10,11 +10,7 @@ export class DataService {
   constructor(private http: HttpClient, private router: Router) {
     this.getData();
   }
-  public selectedValues = {
-    devices: [],
-    protocols: [],
-    times: 0,
-  };
+
   getData() {
     return this.http.get(URL);
   }
@@ -23,10 +19,5 @@ export class DataService {
   }
   clearData() {
     this.formData.device_groups.forEach((group) => group.devices.forEach((device) => device.active = 0));
-    this.selectedValues = {
-      devices: [],
-      protocols: [],
-      times: 0,
-    };
   }
 }

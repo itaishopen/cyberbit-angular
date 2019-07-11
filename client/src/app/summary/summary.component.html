@@ -1,21 +1,20 @@
-<div class="row summary-container">
+<div class="row summary-container" *ngIf="summary">
   <div class="col-md-12">
     <ul class="list-unstyled">
-      <li class="title">1</li>
-      <li *ngFor="let id of summary.devices" class="text">
-        {{ getDeviceName(id) }}
-      </li>
+      <li class="title">1 <span class="placeholder-text" *ngIf="summary.devices.length === 0">-Select Device-</span></li> 
+      <li *ngFor="let device of summary.devices" class="text">{{ device.name }}</li>
     </ul>
     <ul class="list-unstyled"><li><hr></li></ul>
-    <ul class="list-unstyled">2 <span *ngIf="summary.protocols" class="placeholder-text">-Select Protocol- {{ dataService.formData.protocols.length }}</span>
-      <li *ngFor="let protocol of summary.protocols; let i = index" [class.none]="!protocol" class="text">
-        {{protocol ? getProtocolName(i) : ''}}
+    <ul class="list-unstyled">2 <span *ngIf="summary.protocols.length === 0" class="placeholder-text">-Select Protocol-</span>
+      <li *ngFor="let protocol of summary.protocols; let i = index" class="text">
+        {{protocol.name}}
       </li>
     </ul>
     <ul class="list-unstyled"><li><hr></li></ul>
     <ul class="list-unstyled">
-      <li class="title">3 <span *ngIf="summary.times" class="text">{{ getTimes(summary.times) }}</span>
-        <span *ngIf="!summary.times" class="placeholder-text">-Select Time-</span></li>
+      <li class="title">3 <span *ngIf="summary.times !== 0" class="text">{{ summary.times.name }}</span>
+        <span *ngIf="summary.times === 0" class="placeholder-text">-Select Time-</span>
+      </li>
     </ul>
     <ul class="list-unstyled"><li><hr></li></ul>
   </div>
